@@ -146,7 +146,7 @@
         #cardQR {
             position: absolute;
             left: 10px; /* 좌측으로 10px 이동 */
-            bottom: 0px; /* 하단으로 10px 이동 */
+            bottom: -20px; /* 하단으로 10px 이동 */
             width: 40px; /* QR 코드의 가로 사이즈 40px */
             height: 40px; /* QR 코드의 세로 사이즈 40px */
         }
@@ -260,11 +260,9 @@
             qr.addData(`BEGIN:VCARD
 VERSION:3.0
 N:${name}
-TEL:${phone}
 TEL:${mobile}
 EMAIL:${email}
 URL:${website}
-ADR:${address}
 END:VCARD`);
             qr.make();
             document.getElementById('cardQR').innerHTML = qr.createImgTag(2);
