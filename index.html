@@ -269,9 +269,8 @@ TEL:${mobile}
 EMAIL:${email}
 URL:${website}
 END:VCARD`);
-            qr.make();
-            document.getElementById('cardQR').innerHTML = qr.createImgTag(2);
-        });
+    qr.make();
+    const qrCodeImgTag = qr.createImgTag(2);
 
     // QR 코드 배경을 투명하게 설정
     const img = new Image();
