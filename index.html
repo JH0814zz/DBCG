@@ -1,36 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digital Business Card Generator</title>
+    <title>고급 명함 생성기</title>
     <link rel="stylesheet" href="styles.css">
     <!-- html2canvas 라이브러리 추가 -->
     <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.7/dist/html2canvas.min.js"></script>
 </head>
 <body>
-    <!-- 여기에 본문 내용이 들어갑니다. -->
     <div class="container">
-        <h1>Digital Business Card Generator</h1>
+        <h1>고급 명함 생성기</h1>
         <form id="cardForm">
-            <input type="text" id="name" placeholder="Full Name" required>
-            <input type="text" id="title" placeholder="Job Title" required>
-            <input type="text" id="phone" placeholder="Phone Number" required>
-            <input type="email" id="email" placeholder="Email Address" required>
-            <button type="button" id="generateBtn">Generate Card</button>
+            <input type="text" id="name" placeholder="이름" required>
+            <input type="text" id="title" placeholder="직책" required>
+            <input type="text" id="phone" placeholder="전화번호" required>
+            <input type="email" id="email" placeholder="이메일 주소" required>
+            
+            <label for="color">명함 배경색 선택:</label>
+            <input type="color" id="color" value="#ffffff">
+
+            <button type="button" id="generateBtn">명함 생성</button>
         </form>
 
         <div class="card" id="businessCard">
-            <h2 id="cardName">Your Name</h2>
-            <p id="cardTitle">Your Job Title</p>
-            <p id="cardPhone">Your Phone Number</p>
-            <p id="cardEmail">Your Email Address</p>
+            <h2 id="cardName">이름</h2>
+            <p id="cardTitle">직책</p>
+            <p id="cardPhone">전화번호</p>
+            <p id="cardEmail">이메일 주소</p>
         </div>
 
-        <button id="downloadBtn">Download Card</button>
+        <button id="downloadBtn">명함 다운로드</button>
     </div>
 
-    <!-- script.js를 포함하는 스크립트 -->
     <script src="script.js"></script>
 </body>
 </html>
