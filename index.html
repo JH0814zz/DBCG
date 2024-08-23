@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>고급 명함 생성기</title>
     <link rel="stylesheet" href="styles.css">
-    <!-- html2canvas 라이브러리 추가 -->
     <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.7/dist/html2canvas.min.js"></script>
 </head>
 <body>
@@ -14,8 +13,11 @@
         <form id="cardForm">
             <input type="text" id="name" placeholder="이름" required>
             <input type="text" id="title" placeholder="직책" required>
+            <input type="text" id="company" placeholder="회사명" required>
+            <input type="file" id="logo" accept="image/*" placeholder="로고 업로드">
             <input type="text" id="phone" placeholder="전화번호" required>
             <input type="email" id="email" placeholder="이메일 주소" required>
+            <textarea id="slogan" placeholder="슬로건 또는 사명 선언문"></textarea>
             
             <label for="color">명함 배경색 선택:</label>
             <input type="color" id="color" value="#ffffff">
@@ -24,10 +26,13 @@
         </form>
 
         <div class="card" id="businessCard">
+            <div id="logoContainer"></div>
             <h2 id="cardName">이름</h2>
             <p id="cardTitle">직책</p>
+            <p id="cardCompany">회사명</p>
             <p id="cardPhone">전화번호</p>
             <p id="cardEmail">이메일 주소</p>
+            <p id="cardSlogan">슬로건 또는 사명 선언문</p>
         </div>
 
         <button id="downloadBtn">명함 다운로드</button>
