@@ -4,8 +4,118 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>고급 명함 생성기</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.7/dist/html2canvas.min.js"></script>
+    <style>
+        /* styles.css */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            text-align: center;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #333333;
+        }
+
+        input, textarea {
+            display: block;
+            margin: 10px auto;
+            padding: 10px;
+            width: 100%;
+            max-width: 350px;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+        }
+
+        textarea {
+            resize: none;
+            height: 80px;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin-top: 20px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            width: 100%;
+            max-width: 350px;
+        }
+
+        .card {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+            text-align: center;
+            width: 100%;
+            max-width: 350px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        #logoContainer {
+            margin-bottom: 10px;
+        }
+
+        #logoContainer img {
+            max-width: 80px;
+            height: auto;
+        }
+
+        .info {
+            margin-bottom: 15px;
+        }
+
+        .info h2 {
+            margin: 0;
+            font-size: 26px;
+            color: #333333;
+        }
+
+        .info p {
+            margin: 5px 0;
+            font-size: 16px;
+            color: #555555;
+        }
+
+        .contact {
+            margin-bottom: 15px;
+        }
+
+        .contact p {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #555555;
+        }
+
+        .separator {
+            border: 0;
+            border-top: 1px solid #cccccc;
+            margin: 10px 0;
+        }
+
+        #cardSlogan {
+            font-style: italic;
+            color: #777777;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -42,6 +152,53 @@
         <button id="downloadBtn">명함 다운로드</button>
     </div>
 
-    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.7/dist/html2canvas.min.js"></script>
+    <script>
+        // script.js
+        document.getElementById('generateBtn').addEventListener('click', function() {
+            const name = document.getElementById('name').value;
+            const title = document.getElementById('title').value;
+            const company = document.getElementById('company').value;
+            const phone = document.getElementById('phone').value;
+            const email = document.getElementById('email').value;
+            const slogan = document.getElementById('slogan').value;
+            const color = document.getElementById('color').value;
+
+            // 명함 정보 업데이트
+            document.getElementById('cardName').textContent = name;
+            document.getElementById('cardTitle').textContent = title;
+            document.getElementById('cardCompany').textContent = company;
+            document.getElementById('cardPhone').textContent = phone;
+            document.getElementById('cardEmail').textContent = email;
+            document.getElementById('cardSlogan').textContent = slogan;
+            document.getElementById('businessCard').style.backgroundColor = color;
+
+            // 로고 이미지 처리
+            const logoFile = document.getElementById('logo').files[0];
+            if (logoFile) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    document.getElementById('logoContainer').innerHTML = '';
+                    document.getElementById('logoContainer').appendChild(img);
+                };
+                reader.readAsDataURL(logoFile);
+            } else {
+                document.getElementById('logoContainer').innerHTML = '';
+            }
+        });
+
+        document.getElementById('downloadBtn').addEventListener('click', function() {
+            const card = document.getElementById('businessCard');
+            
+            html2canvas(card, { scale: 2 }).then(canvas => { // scale을 2로 설정해 해상도 향상
+                const link = document.createElement('a');
+                link.download = 'business-card.png';
+                link.href = canvas.toDataURL();
+                link.click();
+            });
+        });
+    </script>
 </body>
 </html>
