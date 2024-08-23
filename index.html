@@ -6,186 +6,174 @@
     <title>고급 명함 생성기</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap');
-        
-        body {
-            font-family: 'Noto Sans KR', sans-serif;
-            background-color: #f0f2f5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-            box-sizing: border-box;
-        }
 
-        .container {
-            background-color: #ffffff;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 800px;
-        }
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background-color: #f7f9fc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+}
 
-        h1 {
-            text-align: center;
-            color: #333333;
-            margin-bottom: 30px;
-            font-size: 2.5em;
-        }
+.container {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 900px;
+}
 
-        .form-container, .card-container {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-        }
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 40px;
+    font-size: 2.8em;
+    font-weight: 700;
+}
 
-        .form-section {
-            flex: 1;
-            min-width: 300px;
-            margin-right: 20px;
-        }
+.form-container, .card-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
 
-        .card-section {
-            flex: 1;
-            min-width: 300px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+.form-section, .card-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
 
-        input, textarea, select {
-            display: block;
-            margin: 10px 0;
-            padding: 12px;
-            width: 100%;
-            border: 1px solid #dddddd;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: border-color 0.3s ease;
-        }
+.form-section input, .form-section textarea, .form-section select {
+    margin: 10px 0;
+    padding: 15px;
+    border: 1px solid #dcdcdc;
+    border-radius: 10px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
 
-        input:focus, textarea:focus, select:focus {
-            outline: none;
-            border-color: #4CAF50;
-        }
+.form-section input:focus, .form-section textarea:focus, .form-section select:focus {
+    outline: none;
+    border-color: #4CAF50;
+}
 
-        textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
+textarea {
+    resize: vertical;
+    min-height: 120px;
+}
 
-        button {
-            padding: 12px 20px;
-            margin-top: 20px;
-            cursor: pointer;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 18px;
-            transition: background-color 0.3s ease;
-            width: 100%;
-        }
+button {
+    padding: 15px 20px;
+    margin-top: 20px;
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+    width: 100%;
+}
 
-        button:hover {
-            background-color: #45a049;
-        }
+button:hover {
+    background-color: #45a049;
+}
 
-        .card {
-            width: 350px;
-            height: 200px;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-            background-color: #ffffff;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            margin-bottom: 20px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            position: relative;
-        }
+.card {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+}
 
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-        }
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
 
-        .card-left {
-            position: absolute;
-            left: 20px;
-            top: 20px;
-        }
+.card-left {
+    margin-bottom: 20px;
+}
 
-        .card-right {
-            position: absolute;
-            right: 20px;
-            top: 20px;
-            text-align: right;
-        }
+.card-right {
+    text-align: right;
+}
 
-        .info h2 {
-            margin: 0;
-            font-size: 24px;
-            color: #333333;
-        }
+.info h2 {
+    margin: 0;
+    font-size: 26px;
+    color: #333;
+    font-weight: 700;
+}
 
-        .info p {
-            margin: 5px 0;
-            font-size: 16px;
-            color: #555555;
-        }
+.info p {
+    margin: 5px 0;
+    font-size: 16px;
+    color: #555;
+}
 
-        .contact {
-            font-size: 14px;
-            color: #666666;
-        }
+.contact {
+    font-size: 14px;
+    color: #666;
+}
 
-        #cardQR {
-            position: absolute;
-            left: 10px; /* 좌측으로 10px 이동 */
-            bottom: 85px; /* 하단으로 10px 이동 */
-            width: 40px; /* QR 코드의 가로 사이즈 40px */
-            height: 40px; /* QR 코드의 세로 사이즈 40px */
-        }
+#cardQR {
+    position: absolute;
+    left: 20px;
+    bottom: 20px;
+    width: 50px;
+    height: 50px;
+}
 
-        #cardQR img {
-            background-color: transparent;
-            border: none;
-        }
+#cardQR img {
+    background-color: transparent;
+    border: none;
+}
 
-        #colorPicker {
-            display: flex;
-            align-items: center;
-            margin-top: 10px;
-        }
+#colorPicker {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
 
-        #colorPicker label {
-            margin-right: 10px;
-        }
+#colorPicker label {
+    margin-right: 10px;
+}
 
-        #color {
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-            width: 50px;
-            height: 50px;
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-        }
+#color {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 60px;
+    height: 60px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+}
 
-        #color::-webkit-color-swatch {
-            border-radius: 50%;
-            border: none;
-        }
+#color::-webkit-color-swatch {
+    border-radius: 50%;
+    border: none;
+}
 
-        #color::-moz-color-swatch {
-            border-radius: 50%;
-            border: none;
-        }
+#color::-moz-color-swatch {
+    border-radius: 50%;
+    border: none;
+}
     </style>
 </head>
 <body>
