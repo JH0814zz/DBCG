@@ -14,7 +14,7 @@
             <input type="text" id="name" placeholder="이름" required>
             <input type="text" id="title" placeholder="직책" required>
             <input type="text" id="company" placeholder="회사명" required>
-            <input type="file" id="logo" accept="image/*" placeholder="로고 업로드">
+            <input type="file" id="logo" accept="image/*">
             <input type="text" id="phone" placeholder="전화번호" required>
             <input type="email" id="email" placeholder="이메일 주소" required>
             <textarea id="slogan" placeholder="슬로건 또는 사명 선언문"></textarea>
@@ -27,11 +27,15 @@
 
         <div class="card" id="businessCard">
             <div id="logoContainer"></div>
-            <h2 id="cardName">이름</h2>
-            <p id="cardTitle">직책</p>
-            <p id="cardCompany">회사명</p>
-            <p id="cardPhone">전화번호</p>
-            <p id="cardEmail">이메일 주소</p>
+            <div class="info">
+                <h2 id="cardName">이름</h2>
+                <p id="cardTitle">직책</p>
+            </div>
+            <div class="contact">
+                <p id="cardPhone">전화번호</p>
+                <hr class="separator">
+                <p id="cardEmail">이메일 주소</p>
+            </div>
             <p id="cardSlogan">슬로건 또는 사명 선언문</p>
         </div>
 
