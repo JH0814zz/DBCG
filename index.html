@@ -105,6 +105,7 @@
             justify-content: space-between;
             margin-bottom: 20px;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
         }
 
         .card:hover {
@@ -112,19 +113,17 @@
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
         }
 
-        #logoContainer {
-            text-align: center;
-            margin-bottom: 10px;
+        .card-left {
+            position: absolute;
+            left: 20px;
+            top: 20px;
         }
 
-        #logoContainer img {
-            max-width: 80px;
-            max-height: 80px;
-            object-fit: contain;
-        }
-
-        .info {
-            text-align: center;
+        .card-right {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            text-align: right;
         }
 
         .info h2 {
@@ -140,23 +139,16 @@
         }
 
         .contact {
-            text-align: center;
             font-size: 14px;
             color: #666666;
         }
 
-        .separator {
-            width: 50px;
-            margin: 10px auto;
-            border: none;
-            border-top: 2px solid #4CAF50;
-        }
-
-        #cardSlogan {
-            font-style: italic;
-            color: #777777;
-            text-align: center;
-            font-size: 12px;
+        #cardQR {
+            position: absolute;
+            left: 20px;
+            bottom: 20px;
+            width: 60px;
+            height: 60px;
         }
 
         #colorPicker {
@@ -200,10 +192,11 @@
                     <input type="text" id="name" placeholder="이름" required>
                     <input type="text" id="title" placeholder="직책" required>
                     <input type="text" id="company" placeholder="회사명" required>
-                    <input type="file" id="logo" accept="image/*">
                     <input type="tel" id="phone" placeholder="전화번호" required>
+                    <input type="tel" id="mobile" placeholder="휴대전화" required>
                     <input type="email" id="email" placeholder="이메일 주소" required>
-                    <textarea id="slogan" placeholder="슬로건 또는 사명 선언문"></textarea>
+                    <input type="url" id="website" placeholder="웹사이트" required>
+                    <input type="text" id="address" placeholder="주소" required>
                     <div id="colorPicker">
                         <label for="color">명함 배경색:</label>
                         <input type="color" id="color" value="#ffffff">
@@ -213,18 +206,22 @@
             </div>
             <div class="card-section">
                 <div class="card" id="businessCard">
-                    <div id="logoContainer"></div>
-                    <div class="info">
-                        <h2 id="cardName">이름</h2>
-                        <p id="cardTitle">직책</p>
-                        <p id="cardCompany">회사명</p>
+                    <div class="card-left">
+                        <div class="info">
+                            <h2 id="cardName">이름</h2>
+                            <p id="cardTitle">직책</p>
+                        </div>
                     </div>
-                    <hr class="separator">
-                    <div class="contact">
-                        <p id="cardPhone">전화번호</p>
-                        <p id="cardEmail">이메일 주소</p>
+                    <div class="card-right">
+                        <div class="contact">
+                            <p id="cardPhone">전화번호</p>
+                            <p id="cardMobile">휴대전화</p>
+                            <p id="cardEmail">이메일 주소</p>
+                            <p id="cardWebsite">웹사이트</p>
+                            <p id="cardAddress">주소</p>
+                        </div>
                     </div>
-                    <p id="cardSlogan">슬로건 또는 사명 선언문</p>
+                    <div id="cardQR"></div>
                 </div>
                 <button id="downloadBtn">명함 다운로드</button>
             </div>
@@ -232,22 +229,25 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
     <script>
         document.getElementById('generateBtn').addEventListener('click', function() {
             const name = document.getElementById('name').value;
             const title = document.getElementById('title').value;
-            const company = document.getElementById('company').value;
             const phone = document.getElementById('phone').value;
+            const mobile = document.getElementById('mobile').value;
             const email = document.getElementById('email').value;
-            const slogan = document.getElementById('slogan').value;
+            const website = document.getElementById('website').value;
+            const address = document.getElementById('address').value;
             const color = document.getElementById('color').value;
 
             document.getElementById('cardName').textContent = name;
             document.getElementById('cardTitle').textContent = title;
-            document.getElementById('cardCompany').textContent = company;
             document.getElementById('cardPhone').textContent = phone;
+            document.getElementById('cardMobile').textContent = mobile;
             document.getElementById('cardEmail').textContent = email;
-            document.getElementById('cardSlogan').textContent = slogan;
+            document.getElementById('cardWebsite').textContent = website;
+            document.getElementById('cardAddress').textContent = address;
             document.getElementById('businessCard').style.backgroundColor = color;
 
             // 텍스트 색상 자동 조정
@@ -255,19 +255,19 @@
             const textColor = brightness > 128 ? '#000000' : '#ffffff';
             document.getElementById('businessCard').style.color = textColor;
 
-            const logoFile = document.getElementById('logo').files[0];
-            if (logoFile) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const img = document.createElement('img');
-                    img.src = e.target.result;
-                    document.getElementById('logoContainer').innerHTML = '';
-                    document.getElementById('logoContainer').appendChild(img);
-                };
-                reader.readAsDataURL(logoFile);
-            } else {
-                document.getElementById('logoContainer').innerHTML = '';
-            }
+            // QR 코드 생성
+            const qr = qrcode(0, 'M');
+            qr.addData(`BEGIN:VCARD
+VERSION:3.0
+N:${name}
+TEL:${phone}
+TEL:${mobile}
+EMAIL:${email}
+URL:${website}
+ADR:${address}
+END:VCARD`);
+            qr.make();
+            document.getElementById('cardQR').innerHTML = qr.createImgTag(4);
         });
 
         document.getElementById('downloadBtn').addEventListener('click', function() {
