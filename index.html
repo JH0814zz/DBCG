@@ -237,77 +237,66 @@
     <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
     <script>
         document.getElementById('generateBtn').addEventListener('click', function() {
-        const name = document.getElementById('name').value;
-        const title = document.getElementById('title').value;
-        const phone = document.getElementById('phone').value;
-        const mobile = document.getElementById('mobile').value;
-        const email = document.getElementById('email').value;
-        const website = document.getElementById('website').value;
-        const address = document.getElementById('address').value;
-        const color = document.getElementById('color').value;
+    const name = document.getElementById('name').value;
+    const title = document.getElementById('title').value;
+    const phone = document.getElementById('phone').value;
+    const mobile = document.getElementById('mobile').value;
+    const email = document.getElementById('email').value;
+    const website = document.getElementById('website').value;
+    const address = document.getElementById('address').value;
+    const color = document.getElementById('color').value;
 
-        document.getElementById('cardName').textContent = name;
-        document.getElementById('cardTitle').textContent = title;
-        document.getElementById('cardPhone').textContent = phone
-        document.getElementById('cardMobile').textContent = mobile;
-        document.getElementById('cardEmail').textContent = email;
-        document.getElementById('cardWebsite').textContent = website;
-        document.getElementById('cardAddress').textContent = address;
-        document.getElementById('businessCard').style.backgroundColor = color;
+    document.getElementById('cardName').textContent = name;
+    document.getElementById('cardTitle').textContent = title;
+    document.getElementById('cardPhone').textContent = phone;
+    document.getElementById('cardMobile').textContent = mobile;
+    document.getElementById('cardEmail').textContent = email;
+    document.getElementById('cardWebsite').textContent = website;
+    document.getElementById('cardAddress').textContent = address;
+    document.getElementById('businessCard').style.backgroundColor = color;
 
-        // 텍스트 색상 자동 조정
-        const brightness = getBrightness(color);
-        const textColor = brightness > 128 ? '#000000' : '#ffffff';
-        document.getElementById('businessCard').style.color = textColor;
+    // 텍스트 색상 자동 조정
+    const brightness = getBrightness(color);
+    const textColor = brightness > 128 ? '#000000' : '#ffffff';
+    document.getElementById('businessCard').style.color = textColor;
 
-        // QR 코드 생성
-        const qr = qrcode(0, 'M');
-        qr.addData(`BEGIN:VCARD
-    VERSION:3.0
-    N:${name}
-    TEL:${mobile}
-    EMAIL:${email}
-    URL:${website}
-    END:VCARD`);
-        qr.make();
-        const qrCodeImgTag = qr.createImgTag(2);
+    // QR 코드 생성
+    const qr = qrcode(0, 'M');
+    qr.addData(`BEGIN:VCARD
+VERSION:3.0
+N:${name}
+TEL:${mobile}
+EMAIL:${email}
+URL:${website}
+END:VCARD`);
+    qr.make();
+    const qrCodeDataURL = qr.createDataURL(4);
 
-        // QR 코드 배경을 투명하게 설정
-        const img = new Image();
-        img.src = qrCodeImgTag;
-        img.onload = function() {
-            const canvas = document.createElement('canvas');
-            const ctx = canvas.getContext('2d');
-            canvas.width = img.width;
-            canvas.height = img.height;
-            ctx.drawImage(img, 0, 0);
-            ctx.globalCompositeOperation = 'destination-in';
-            ctx.fillStyle = 'rgba(0,0,0,0)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
+    // QR 코드 배경을 투명하게 설정
+    const img = new Image();
+    img.src = qrCodeDataURL;
+    img.onload = function() {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = img.width;
+        canvas.height = img.height;
+        ctx.drawImage(img, 0, 0);
+        ctx.globalCompositeOperation = 'destination-in';
+        ctx.fillStyle = 'rgba(0,0,0,0)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // 투명 배경 QR 코드 이미지로 업데이트
-            document.getElementById('cardQR').innerHTML = `<img src="${canvas.toDataURL()}" alt="QR 코드">`;
+        // 투명 배경 QR 코드 이미지로 업데이트
+        document.getElementById('cardQR').innerHTML = `<img src="${canvas.toDataURL()}" alt="QR 코드">`;
     };
 });
 
-    document.getElementById('downloadBtn').addEventListener('click', function() {
-        const card = document.getElementById('businessCard');
-    
-        html2canvas(card, { scale: 2 }).then(canvas => {
-            const link = document.createElement('a');
-            link.download = 'business-card.png';
-            link.href = canvas.toDataURL();
-            link.click();
-        });
-    });
-
-    function getBrightness(color) {
-        const hex = color.replace('#', '');
-        const r = parseInt(hex.substr(0, 2), 16);
-        const g = parseInt(hex.substr(2, 2), 16);
-        const b = parseInt(hex.substr(4, 2), 16);
-        return (r * 299 + g * 587 + b * 114) / 1000;
-    }
+function getBrightness(color) {
+    const hex = color.replace('#', '');
+    const r = parseInt(hex.substr(0, 2), 16);
+    const g = parseInt(hex.substr(2, 2), 16);
+    const b = parseInt(hex.substr(4, 2), 16);
+    return (r * 299 + g * 587 + b * 114) / 1000;
+}    
     </script>
 </body>
 </html>
