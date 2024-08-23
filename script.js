@@ -35,8 +35,8 @@ document.getElementById('generateBtn').addEventListener('click', function() {
 
 document.getElementById('downloadBtn').addEventListener('click', function() {
     const card = document.getElementById('businessCard');
-
-    html2canvas(card).then(canvas => {
+    
+    html2canvas(card, { scale: 2 }).then(canvas => { // scale을 2로 설정해 해상도 향상
         const link = document.createElement('a');
         link.download = 'business-card.png';
         link.href = canvas.toDataURL();
