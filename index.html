@@ -273,16 +273,34 @@ END:VCARD`);
             document.getElementById('cardQR').innerHTML = qr.createImgTag(2);
         });
 
-        document.getElementById('downloadBtn').addEventListener('click', function() {
-            const card = document.getElementById('businessCard');
-            
-            html2canvas(card, { scale: 2 }).then(canvas => {
-                const link = document.createElement('a');
-                link.download = 'business-card.png';
-                link.href = canvas.toDataURL();
-                link.click();
-            });
-        });
+    // QR 코드 배경을 투명하게 설정
+    const img = new Image();
+    img.src = qrCodeImgTag;
+    img.onload = function() {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = img.width;
+        canvas.height = img.height;
+        ctx.drawImage(img, 0, 0);
+        ctx.globalCompositeOperation = 'destination-in';
+        ctx.fillStyle = 'rgba(0,0,0,0)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // 투명 배경 QR 코드 이미지로 업데이트
+        document.getElementById('cardQR').innerHTML = `<img src="${canvas.toDataURL()}" alt="QR 코드">`;
+    };
+});
+
+document.getElementById('downloadBtn').addEventListener('click', function() {
+    const card = document.getElementById('businessCard');
+    
+    html2canvas(card, { scale: 2 }).then(canvas => {
+        const link = document.createElement('a');
+        link.download = 'business-card.png';
+        link.href = canvas.toDataURL();
+        link.click();
+    });
+});
 
         function getBrightness(color) {
             const hex = color.replace('#', '');
