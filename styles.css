@@ -15,7 +15,7 @@ body {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-    width: 350px;
+    width: 400px;
 }
 
 h1 {
@@ -28,13 +28,14 @@ input, textarea {
     margin: 10px auto;
     padding: 10px;
     width: 100%;
-    max-width: 300px;
+    max-width: 350px;
     border: 1px solid #cccccc;
     border-radius: 5px;
 }
 
 textarea {
     resize: none;
+    height: 80px;
 }
 
 button {
@@ -46,7 +47,7 @@ button {
     border: none;
     border-radius: 5px;
     width: 100%;
-    max-width: 300px;
+    max-width: 350px;
 }
 
 .card {
@@ -55,25 +56,55 @@ button {
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     background-color: #ffffff;
-    transition: background-color 0.3s;
-    text-align: left;
-    width: 300px;
+    text-align: center;
+    width: 100%;
+    max-width: 350px;
     margin: 0 auto;
+    position: relative;
 }
 
-#logoContainer img {
-    max-width: 100px;
+#logoContainer {
     margin-bottom: 10px;
 }
 
-.card h2 {
-    margin: 10px 0 5px;
-    font-size: 22px;
+#logoContainer img {
+    max-width: 80px;
+    height: auto;
+}
+
+.info {
+    margin-bottom: 15px;
+}
+
+.info h2 {
+    margin: 0;
+    font-size: 26px;
     color: #333333;
 }
 
-.card p {
+.info p {
     margin: 5px 0;
+    font-size: 16px;
     color: #555555;
+}
+
+.contact {
+    margin-bottom: 15px;
+}
+
+.contact p {
+    margin: 5px 0;
     font-size: 14px;
+    color: #555555;
+}
+
+.separator {
+    border: 0;
+    border-top: 1px solid #cccccc;
+    margin: 10px 0;
+}
+
+#cardSlogan {
+    font-style: italic;
+    color: #777777;
 }
